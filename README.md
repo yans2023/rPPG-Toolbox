@@ -314,6 +314,26 @@ STEP 2: `conda activate rppg-toolbox` or, when using `uv`, `source .venv/bin/act
 
 NOTE: the above setup should work without any issues on machines using Linux or MacOS. If you run into compiler-related issues using `uv` when installing tools related to mamba, try checking to see if `clang++` is in your path using `which clang++`. If nothing shows up, you can install `clang++` using `sudo apt-get install clang` on Linux or `xcode-select --install` on MacOS.
 
+### Apple Silicon (macOS `arm64`) notes
+
+`setup.sh` installs CUDA builds of PyTorch (`+cu121`), which are **not** available for macOS arm64. Also, `opencv-python==4.5.2.54` in `requirements.txt` does **not** ship wheels for macOS arm64.
+
+If you are on Apple Silicon and using `uv`, prefer this flow:
+
+```bash
+rm -rf .venv
+uv venv --python 3.8
+source .venv/bin/activate
+uv pip install setuptools wheel
+# Pin NumPy first so PyTorch doesn't pull a newer NumPy that later conflicts with the rest of the pins.
+uv pip install "numpy==1.22.0"
+# On Apple Silicon, use the macOS/arm64 PyTorch wheels (not `+cu121`).
+uv pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1
+uv pip install -r requirements/macos_arm64.txt
+```
+
+This uses `./requirements/macos_arm64.txt`, which bumps OpenCV to a version with Apple Silicon wheels and **omits** `mamba-ssm` / `causal-conv1d` (these are often painful to build on macOS; install them only if you need PhysMamba-related workflows).
+
 If you use Windows or other operating systems, consider using [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install) and following the steps within `setup.sh` independently.
 
 # :computer: Example of Using Pre-trained Models 

@@ -95,8 +95,19 @@ if not SKIP_CUDA_BUILD:
     TORCH_MINOR = int(torch.__version__.split(".")[1])
 
     check_if_cuda_home_none(PACKAGE_NAME)
+    # If CUDA isn't available, we cannot compile the CUDA extensions.
+    # NOTE: This project vendors mamba primarily for Linux/CUDA workflows (e.g., PhysMamba).
+    if CUDA_HOME is None:
+        warnings.warn(
+            f"{PACKAGE_NAME}: CUDA_HOME is not set (nvcc not found). "
+            "Skipping CUDA extension build. If you need mamba-ssm CUDA kernels, install on Linux with CUDA/nvcc "
+            "or set CUDA_HOME appropriately."
+        )
+        SKIP_CUDA_BUILD = True
+
     # Check, if CUDA11 is installed for compute capability 8.0
     cc_flag = []
+    bare_metal_version = None
     if CUDA_HOME is not None:
         _, bare_metal_version = get_cuda_bare_metal_version(CUDA_HOME)
         if bare_metal_version < Version("11.6"):
@@ -105,59 +116,59 @@ if not SKIP_CUDA_BUILD:
                 "Note: make sure nvcc has a supported version by running nvcc -V."
             )
 
-    cc_flag.append("-gencode")
-    cc_flag.append("arch=compute_70,code=sm_70")
-    cc_flag.append("-gencode")
-    cc_flag.append("arch=compute_80,code=sm_80")
-    if bare_metal_version >= Version("11.8"):
         cc_flag.append("-gencode")
-        cc_flag.append("arch=compute_90,code=sm_90")
+        cc_flag.append("arch=compute_70,code=sm_70")
+        cc_flag.append("-gencode")
+        cc_flag.append("arch=compute_80,code=sm_80")
+        if bare_metal_version >= Version("11.8"):
+            cc_flag.append("-gencode")
+            cc_flag.append("arch=compute_90,code=sm_90")
 
-    # HACK: The compiler flag -D_GLIBCXX_USE_CXX11_ABI is set to be the same as
-    # torch._C._GLIBCXX_USE_CXX11_ABI
-    # https://github.com/pytorch/pytorch/blob/8472c24e3b5b60150096486616d98b7bea01500b/torch/utils/cpp_extension.py#L920
-    if FORCE_CXX11_ABI:
-        torch._C._GLIBCXX_USE_CXX11_ABI = True
+        # HACK: The compiler flag -D_GLIBCXX_USE_CXX11_ABI is set to be the same as
+        # torch._C._GLIBCXX_USE_CXX11_ABI
+        # https://github.com/pytorch/pytorch/blob/8472c24e3b5b60150096486616d98b7bea01500b/torch/utils/cpp_extension.py#L920
+        if FORCE_CXX11_ABI:
+            torch._C._GLIBCXX_USE_CXX11_ABI = True
 
-    ext_modules.append(
-        CUDAExtension(
-            name="selective_scan_cuda",
-            sources=[
-                "csrc/selective_scan/selective_scan.cpp",
-                "csrc/selective_scan/selective_scan_fwd_fp32.cu",
-                "csrc/selective_scan/selective_scan_fwd_fp16.cu",
-                "csrc/selective_scan/selective_scan_fwd_bf16.cu",
-                "csrc/selective_scan/selective_scan_bwd_fp32_real.cu",
-                "csrc/selective_scan/selective_scan_bwd_fp32_complex.cu",
-                "csrc/selective_scan/selective_scan_bwd_fp16_real.cu",
-                "csrc/selective_scan/selective_scan_bwd_fp16_complex.cu",
-                "csrc/selective_scan/selective_scan_bwd_bf16_real.cu",
-                "csrc/selective_scan/selective_scan_bwd_bf16_complex.cu",
-            ],
-            extra_compile_args={
-                "cxx": ["-O3", "-std=c++17"],
-                "nvcc": append_nvcc_threads(
-                    [
-                        "-O3",
-                        "-std=c++17",
-                        "-U__CUDA_NO_HALF_OPERATORS__",
-                        "-U__CUDA_NO_HALF_CONVERSIONS__",
-                        "-U__CUDA_NO_BFLOAT16_OPERATORS__",
-                        "-U__CUDA_NO_BFLOAT16_CONVERSIONS__",
-                        "-U__CUDA_NO_BFLOAT162_OPERATORS__",
-                        "-U__CUDA_NO_BFLOAT162_CONVERSIONS__",
-                        "--expt-relaxed-constexpr",
-                        "--expt-extended-lambda",
-                        "--use_fast_math",
-                        "--ptxas-options=-v",
-                        "-lineinfo",
-                    ]
-                    + cc_flag
-                ),
-            },
-            include_dirs=[Path(this_dir) / "csrc" / "selective_scan"],
+        ext_modules.append(
+            CUDAExtension(
+                name="selective_scan_cuda",
+                sources=[
+                    "csrc/selective_scan/selective_scan.cpp",
+                    "csrc/selective_scan/selective_scan_fwd_fp32.cu",
+                    "csrc/selective_scan/selective_scan_fwd_fp16.cu",
+                    "csrc/selective_scan/selective_scan_fwd_bf16.cu",
+                    "csrc/selective_scan/selective_scan_bwd_fp32_real.cu",
+                    "csrc/selective_scan/selective_scan_bwd_fp32_complex.cu",
+                    "csrc/selective_scan/selective_scan_bwd_fp16_real.cu",
+                    "csrc/selective_scan/selective_scan_bwd_fp16_complex.cu",
+                    "csrc/selective_scan/selective_scan_bwd_bf16_real.cu",
+                    "csrc/selective_scan/selective_scan_bwd_bf16_complex.cu",
+                ],
+                extra_compile_args={
+                    "cxx": ["-O3", "-std=c++17"],
+                    "nvcc": append_nvcc_threads(
+                        [
+                            "-O3",
+                            "-std=c++17",
+                            "-U__CUDA_NO_HALF_OPERATORS__",
+                            "-U__CUDA_NO_HALF_CONVERSIONS__",
+                            "-U__CUDA_NO_BFLOAT16_OPERATORS__",
+                            "-U__CUDA_NO_BFLOAT16_CONVERSIONS__",
+                            "-U__CUDA_NO_BFLOAT162_OPERATORS__",
+                            "-U__CUDA_NO_BFLOAT162_CONVERSIONS__",
+                            "--expt-relaxed-constexpr",
+                            "--expt-extended-lambda",
+                            "--use_fast_math",
+                            "--ptxas-options=-v",
+                            "-lineinfo",
+                        ]
+                        + cc_flag
+                    ),
+                },
+                include_dirs=[Path(this_dir) / "csrc" / "selective_scan"],
+            )
         )
-    )
 
 
 def get_package_version():

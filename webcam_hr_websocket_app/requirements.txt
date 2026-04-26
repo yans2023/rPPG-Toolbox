@@ -1,0 +1,6 @@
+fastapi==0.115.8
+uvicorn[standard]==0.34.0
+# NOTE: OpenCV 4.8.x wheels on Python 3.11 require numpy>=1.23.5.
+numpy==1.26.4
+opencv-python-headless==4.8.1.78
+scipy==1.10.1

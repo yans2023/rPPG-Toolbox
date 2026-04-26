@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Webcam HR (WebSocket)</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f7fb;
+        --card: #ffffff;
+        --text: #111;
+        --muted: #666;
+        --border: #e8e8ee;
+        --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        padding: calc(12px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left));
+      }
+      .page { max-width: 980px; margin: 0 auto; }
+      h2 { margin: 6px 0 8px; font-size: 20px; letter-spacing: 0.2px; }
+      .muted { color: var(--muted); font-size: 13px; line-height: 1.45; }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 12px;
+        box-shadow: var(--shadow);
+      }
+      details > summary {
+        cursor: pointer;
+        user-select: none;
+        list-style: none;
+      }
+      details > summary::-webkit-details-marker { display: none; }
+      .summaryRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 8px 2px;
+      }
+      .pill {
+        font-size: 12px;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #fafbff;
+        white-space: nowrap;
+      }
+      .videoWrap {
+        position: relative;
+        width: 100%;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #111;
+      }
+      video { width: 100%; height: auto; display: block; }
+      canvas { display: none; }
+      .hrOverlay {
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: rgba(0,0,0,0.45);
+        color: #fff;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        min-width: 132px;
+      }
+      .hrOverlay .label { font-size: 12px; opacity: 0.85; margin-bottom: 2px; }
+      .hrOverlay .value { font-size: 40px; font-weight: 800; line-height: 1; letter-spacing: 0.5px; }
+      .hr { font-size: 40px; font-weight: 800; margin-top: 10px; }
+      .meta { margin-top: 6px; font-size: 13px; color: var(--muted); line-height: 1.35; word-break: break-word; }
+      .btnRow { display: flex; gap: 10px; margin-top: 12px; }
+      button {
+        flex: 1;
+        min-height: 46px;
+        border-radius: 14px;
+        border: 1px solid #cfcfd6;
+        background: #fff;
+        font-size: 16px;
+      }
+      button.primary { border-color: #111; background: #111; color: #fff; }
+      button:disabled { opacity: 0.45; }
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      @media (max-width: 520px) {
+        .grid2 { grid-template-columns: 1fr; }
+      }
+      label.field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      select, input[type="number"] {
+        width: 100%;
+        min-height: 44px;
+        font-size: 16px; /* avoids iOS zoom on focus */
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        padding: 10px 10px;
+        background: #fff;
+      }
+      .checkRow { display: flex; align-items: center; gap: 10px; margin-top: 10px; color: var(--text); }
+      .checkRow input { width: 18px; height: 18px; }
+      pre {
+        margin: 10px 0 0;
+        max-height: 34vh;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        white-space: pre-wrap;
+        word-break: break-word;
+        background: #0b1020;
+        color: #d7e0ff;
+        padding: 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <h2>摄像头心率 Demo</h2>
+
+      <details style="margin: 8px 0 10px;">
+        <summary class="muted">提示（HTTPS / 权限）</summary>
+        <p class="muted" style="margin: 8px 0 0;">
+          手机访问请用 <b>HTTPS 域名</b>（否则经常无法打开摄像头）。页面会把视频画到隐藏 canvas，再按频率导出 JPEG（整帧）通过 WebSocket 发给服务器计算心率。
+        </p>
+      </details>
+
+      <div class="card">
+        <div class="btnRow">
+          <button id="btnStart" class="primary">开始</button>
+          <button id="btnStop" disabled>停止</button>
+        </div>
+
+        <div style="margin-top: 12px;">
+          <div class="videoWrap">
+            <video id="video" playsinline autoplay muted></video>
+            <div class="hrOverlay" aria-live="polite">
+              <div class="label">实时心率（BPM）</div>
+              <div id="hrOverlay" class="value">--</div>
+            </div>
+            <canvas id="canvas"></canvas>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div class="muted">状态</div>
+          <div id="hr" class="hr" style="display:none;">--</div>
+          <div id="meta" class="meta">未连接</div>
+        </div>
+
+        <details id="dbg" open style="margin-top: 12px;">
+          <summary class="muted">
+            <div class="summaryRow">
+              <span>调试信息</span>
+              <span class="pill">JSON 流</span>
+            </div>
+          </summary>
+          <pre id="log"></pre>
+        </details>
+
+        <details id="adv" style="margin-top: 12px;">
+          <summary class="muted">
+            <div class="summaryRow">
+              <span>高级设置（默认隐藏）</span>
+              <span class="pill">可选</span>
+            </div>
+          </summary>
+
+          <div class="grid2" style="margin-top: 10px;">
+            <label class="field">方法
+              <select id="method">
+                <option value="POS" selected>POS</option>
+                <option value="CHROM">CHROM</option>
+              </select>
+            </label>
+
+            <label class="field">fps_hint
+              <input id="fps" type="number" value="10" min="1" max="60" inputmode="numeric" />
+            </label>
+
+            <label class="field">窗口（秒）
+              <input id="win" type="number" value="8" min="3" max="30" inputmode="numeric" />
+            </label>
+
+            <label class="field">ROI 缩放
+              <input id="roi" type="number" value="0.6" min="0.3" max="1.0" step="0.05" inputmode="decimal" />
+            </label>
+
+            <label class="field">JPEG 质量
+              <input id="jq" type="number" value="0.55" min="0.35" max="0.95" step="0.05" inputmode="decimal" />
+            </label>
+
+            <label class="field">发送间隔（ms）
+              <input id="interval" type="number" value="250" min="50" max="2000" step="10" inputmode="numeric" />
+            </label>
+          </div>
+
+          <label class="checkRow">
+            <input id="logcsv" type="checkbox" />
+            <span>服务器写 CSV（logs/）</span>
+          </label>
+        </details>
+      </div>
+    </div>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+
+      let ws = null;
+      let stream = null;
+      let timer = null;
+
+      function appendLog(obj) {
+        const el = $("log");
+        const line = JSON.stringify(obj);
+        el.textContent = (line + "\n" + el.textContent).slice(0, 8000);
+      }
+
+      function wsUrl() {
+        const loc = window.location;
+        const scheme = loc.protocol === "https:" ? "wss" : "ws";
+        return scheme + "://" + loc.host + "/ws";
+      }
+
+      async function start() {
+        $("btnStart").disabled = true;
+        $("log").textContent = "";
+        $("meta").textContent = "正在请求摄像头权限…";
+        $("hrOverlay").textContent = "--";
+
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user", width: { ideal: 960 }, height: { ideal: 540 } },
+          audio: false,
+        });
+        $("video").srcObject = stream;
+
+        await new Promise((resolve) => $("video").onloadedmetadata = resolve);
+
+        const v = $("video");
+        const c = $("canvas");
+        c.width = v.videoWidth;
+        c.height = v.videoHeight;
+        const ctx = c.getContext("2d", { willReadFrequently: true });
+
+        ws = new WebSocket(wsUrl());
+        ws.binaryType = "arraybuffer";
+
+        ws.onopen = () => {
+          $("meta").textContent = "WebSocket 已连接，等待服务器 hello_ok…";
+          const hello = {
+            type: "hello",
+            session_id: "mobile-" + Date.now(),
+            method: $("method").value,
+            fps_hint: Number($("fps").value || 10),
+            window_seconds: Number($("win").value || 8),
+            roi_scale: Number($("roi").value || 0.6),
+            log_csv: $("logcsv").checked,
+          };
+          ws.send(JSON.stringify(hello));
+        };
+
+        ws.onmessage = (ev) => {
+          // server sends JSON text only (metrics / errors)
+          try {
+            const msg = JSON.parse(ev.data);
+            appendLog(msg);
+            if (msg.type === "hello_ok") {
+              $("meta").textContent =
+                `已就绪：${msg.method} | window=${msg.window_seconds}s | cap=${msg.buffer_cap}`;
+            }
+            if (msg.type === "metrics") {
+              const hr = Number(msg.hr_bpm || 0);
+              const hrText = hr > 0 ? String(Math.round(hr)) : "--";
+              $("hrOverlay").textContent = hrText;
+              $("meta").textContent =
+                `face=${msg.face} buffer=${msg.buffer_len}/${msg.buffer_cap}` +
+                (msg.fps_effective ? ` fps≈${msg.fps_effective.toFixed(1)}` : "");
+            }
+          } catch (e) {
+            appendLog({ type: "client_parse_error", error: String(e) });
+          }
+        };
+
+        ws.onerror = () => appendLog({ type: "ws_error" });
+        ws.onclose = () => {
+          appendLog({ type: "ws_close" });
+          stop(false);
+        };
+
+        const jpegQ = Number($("jq").value || 0.55);
+        const intervalMs = Number($("interval").value || 250);
+
+        timer = setInterval(() => {
+          if (!ws || ws.readyState !== WebSocket.OPEN) return;
+          ctx.drawImage(v, 0, 0, c.width, c.height);
+          c.toBlob(
+            (blob) => {
+              if (!blob || !ws || ws.readyState !== WebSocket.OPEN) return;
+              blob.arrayBuffer().then((buf) => ws.send(buf));
+            },
+            "image/jpeg",
+            jpegQ
+          );
+        }, intervalMs);
+
+        $("btnStop").disabled = false;
+      }
+
+      function stop(resetUi) {
+        if (timer) clearInterval(timer);
+        timer = null;
+
+        if (ws) {
+          try {
+            ws.close();
+          } catch (e) {}
+          ws = null;
+        }
+
+        if (stream) {
+          for (const t of stream.getTracks()) t.stop();
+          stream = null;
+        }
+
+        $("video").srcObject = null;
+        $("btnStart").disabled = false;
+        $("btnStop").disabled = true;
+        if (resetUi) {
+          $("hrOverlay").textContent = "--";
+          $("meta").textContent = "未连接";
+        }
+      }
+
+      $("btnStart").onclick = () => start().catch((e) => appendLog({ type: "start_failed", error: String(e) }));
+      $("btnStop").onclick = () => stop(true);
+    </script>
+  </body>
+</html>
