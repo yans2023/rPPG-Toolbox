@@ -1,0 +1,522 @@
+{
+  "data_dir": "/Users/yans/Documents/02_AICoding/Github/rPPG-Toolbox/test_output/20260420-rPPG-fiber",
+  "seed": 42,
+  "n_requested": 3,
+  "n_chosen": 3,
+  "total_valid_windows": 2872,
+  "samples": [
+    {
+      "source_csv": "hr_20260420_105944_part04.csv",
+      "window_start_elapsed_sec": 1427,
+      "meta": {
+        "n_samples": 60,
+        "age_used": null,
+        "hr_max_formula": "185(default)"
+      },
+      "vitals": {
+        "mean_hr_bpm": 67.5,
+        "std_hr_bpm": 6.74,
+        "min_hr_bpm": 54.3,
+        "max_hr_bpm": 79.8,
+        "hr_range_bpm": 25.5,
+        "slope_bpm_per_min": -3.63
+      },
+      "indicators": {
+        "instant_readiness": {
+          "name": "即时活力指数",
+          "name_en": "Instant Readiness",
+          "score": 90.9,
+          "unit": "分（0~100）",
+          "level": "优秀",
+          "explanation": "您当前身心状态极佳，身体的自我调节能力处于高水平，精力充沛。",
+          "advice": "适合进行高强度工作、运动挑战或重要决策。",
+          "detail": {
+            "relaxation_score": 89.0,
+            "ans_activity_score": 90.2,
+            "resilience_score": 94.0
+          }
+        },
+        "instant_stress_index": {
+          "name": "即时压力指数",
+          "name_en": "Instant Stress Index",
+          "score": 35.5,
+          "unit": "分（0~100）",
+          "level": "平稳",
+          "explanation": "您当前处于正常的工作/生活状态，压力水平适中。",
+          "advice": "这是日常活动的正常状态，无需特别干预。",
+          "detail": {
+            "trend_score": 22.0,
+            "disp_score": 67.4,
+            "dev_score": 12.7
+          }
+        },
+        "hr_fluctuation_sensitivity": {
+          "name": "心率波动敏感性",
+          "name_en": "HR Fluctuation Sensitivity",
+          "score": null,
+          "unit": "",
+          "level": "高",
+          "explanation": "您的心率波动较大，可能与情绪变化、体动或环境刺激有关。",
+          "advice": "建议减少外界干扰，保持稳定姿势；如持续出现，可留意是否与情绪或身体不适相关。",
+          "detail": {
+            "CV_HR": 0.0999,
+            "HRV_diff_mean_bpm": 3.21
+          }
+        },
+        "hr_reserve_utilization": {
+          "name": "即时心率储备利用率",
+          "name_en": "HR Reserve Utilization",
+          "score": 9.4,
+          "unit": "%",
+          "level": "静息态",
+          "explanation": "您当前心率接近静息水平，身体处于安静休息状态。",
+          "advice": "适合放松和恢复，也适合进行冥想或阅读。",
+          "detail": {
+            "hr_rest_p5": 55.3,
+            "hr_max_est": 185.0
+          }
+        },
+        "hr_recovery_tendency": {
+          "name": "心率恢复趋势",
+          "name_en": "HR Recovery Tendency",
+          "score": null,
+          "unit": "",
+          "level": "恢复中",
+          "explanation": "您的心率在这一分钟内呈下降趋势，身体正从之前的活动或压力中恢复。",
+          "advice": "恢复进行中，无需额外干预；如刚运动完，这是正常的恢复信号。",
+          "detail": {
+            "mean_first_20s": 67.7,
+            "mean_last_20s": 65.7,
+            "delta_bpm": -2.0
+          }
+        },
+        "exercise_tolerance_hint": {
+          "name": "运动耐受提示",
+          "name_en": "Exercise Tolerance Hint",
+          "score": 91.7,
+          "unit": "分（0~100）",
+          "level": "良好",
+          "explanation": "您的心脏调节能力较好，当前身体对运动负荷的承受力充足。",
+          "advice": "今日可进行中高强度训练或体力活动。"
+        },
+        "cv_stress_signal": {
+          "name": "心血管应激指数",
+          "name_en": "CV Stress Signal",
+          "score": 39.1,
+          "unit": "分（0~100）",
+          "level": "正常范围",
+          "explanation": "您的心血管系统承受适度负荷，属于日常正常水平。",
+          "advice": "维持当前作息即可，注意保持充足饮水。"
+        },
+        "metabolic_load_hint": {
+          "name": "代谢负荷提示",
+          "name_en": "Metabolic Load Hint",
+          "score": null,
+          "unit": "",
+          "level": "正常",
+          "explanation": "在静息状态下，您的心率和心率变异性组合正常，未见明显代谢压力。",
+          "advice": "维持当前饮食和作息即可。"
+        },
+        "rhythm_anomaly_hint": {
+          "name": "节律异常提示",
+          "name_en": "Rhythm Anomaly Hint",
+          "score": null,
+          "unit": "",
+          "level": "轻度波动",
+          "explanation": "检测到少量心率跳动异常，可能与体动、呼吸或一过性干扰有关。",
+          "advice": "多数情况属于正常生理波动；建议减少咖啡因，保持规律作息，次日复测观察。",
+          "detail": {
+            "outlier_count": 0,
+            "outlier_ratio": 0.0,
+            "HRV_diff_max_bpm": 19.6,
+            "PNN50_proxy": 0.1695
+          }
+        },
+        "instant_ans_activity": {
+          "name": "即时自主神经活性",
+          "name_en": "Instant ANS Activity",
+          "score": 90.2,
+          "unit": "分（0~100）",
+          "level": "活性旺盛",
+          "explanation": "您的自主神经系统非常活跃，身体的自我调节能力处于高水平。",
+          "advice": "身体状态佳，适合迎接挑战性任务或中高强度运动。"
+        },
+        "instant_ans_balance": {
+          "name": "即时神经平衡趋势",
+          "name_en": "Instant ANS Balance",
+          "score": null,
+          "unit": "",
+          "level": "平衡",
+          "explanation": "您的交感和副交感神经处于良好的平衡状态，身体既有活力又有恢复能力。",
+          "advice": "最佳状态，适合各类活动。",
+          "detail": {
+            "SD1_ms": 59.8,
+            "SD2_ms": 123.7,
+            "SD1_SD2_ratio": 0.4834
+          }
+        },
+        "instant_regulatory_resilience": {
+          "name": "即时神经调节弹性",
+          "name_en": "Instant Regulatory Resilience",
+          "score": 94.0,
+          "unit": "分（0~100）",
+          "level": "优秀",
+          "explanation": "您的神经系统快速响应能力极强，身体能迅速适应外界变化。",
+          "advice": "适合高压、高强度的工作场景和运动挑战。",
+          "detail": {
+            "RMSSD_ms": 83.8,
+            "hr_range_bpm": 25.5
+          }
+        }
+      },
+      "comprehensive_summary": "综合来看，您当前身心状态良好，身体活力充足且压力水平较低。自主神经系统活性旺盛且处于平衡状态，调节弹性优秀。运动方面，当前处于静息态，心率趋势恢复中，运动耐受能力良好。风险筛查提示：节律轻度波动，建议持续关注或复测确认。此外，您的心率波动敏感性偏高，可能受环境、情绪或测量条件影响，建议在安静环境下复测。⚠ 本报告为1分钟即时快照，非临床诊断。HRV指标基于心率推导，仅供健康参考。",
+      "proxy_hrv_ms": {
+        "SDNN": 97.1,
+        "RMSSD": 83.8
+      },
+      "disclaimer": "本报告为1分钟即时状态快照，非临床诊断。HRV相关指标为心率推导的代理值，非心电级别，仅供健康参考。"
+    },
+    {
+      "source_csv": "hr_20260420_102855_part01.csv",
+      "window_start_elapsed_sec": 520,
+      "meta": {
+        "n_samples": 60,
+        "age_used": null,
+        "hr_max_formula": "185(default)"
+      },
+      "vitals": {
+        "mean_hr_bpm": 64.1,
+        "std_hr_bpm": 2.83,
+        "min_hr_bpm": 58.9,
+        "max_hr_bpm": 69.8,
+        "hr_range_bpm": 10.9,
+        "slope_bpm_per_min": 0.01
+      },
+      "indicators": {
+        "instant_readiness": {
+          "name": "即时活力指数",
+          "name_en": "Instant Readiness",
+          "score": 63.8,
+          "unit": "分（0~100）",
+          "level": "良好",
+          "explanation": "您的即时身心状态不错，身体具备良好的应对能力。",
+          "advice": "可正常安排各类活动，适合中高强度任务。",
+          "detail": {
+            "relaxation_score": 61.1,
+            "ans_activity_score": 73.4,
+            "resilience_score": 55.7
+          }
+        },
+        "instant_stress_index": {
+          "name": "即时压力指数",
+          "name_en": "Instant Stress Index",
+          "score": 27.3,
+          "unit": "分（0~100）",
+          "level": "放松",
+          "explanation": "您此刻处于放松平静的状态，身心压力很低。",
+          "advice": "可能处于低唤醒状态，适合创意性或轻松的工作。",
+          "detail": {
+            "trend_score": 25.0,
+            "disp_score": 28.3,
+            "dev_score": 29.7
+          }
+        },
+        "hr_fluctuation_sensitivity": {
+          "name": "心率波动敏感性",
+          "name_en": "HR Fluctuation Sensitivity",
+          "score": null,
+          "unit": "",
+          "level": "中",
+          "explanation": "您的心率存在正常范围内的波动，属于健康的生理节律。",
+          "advice": "属于正常表现，无需特别关注。",
+          "detail": {
+            "CV_HR": 0.0441,
+            "HRV_diff_mean_bpm": 1.45
+          }
+        },
+        "hr_reserve_utilization": {
+          "name": "即时心率储备利用率",
+          "name_en": "HR Reserve Utilization",
+          "score": 3.7,
+          "unit": "%",
+          "level": "静息态",
+          "explanation": "您当前心率接近静息水平，身体处于安静休息状态。",
+          "advice": "适合放松和恢复，也适合进行冥想或阅读。",
+          "detail": {
+            "hr_rest_p5": 59.4,
+            "hr_max_est": 185.0
+          }
+        },
+        "hr_recovery_tendency": {
+          "name": "心率恢复趋势",
+          "name_en": "HR Recovery Tendency",
+          "score": null,
+          "unit": "",
+          "level": "稳定",
+          "explanation": "您的心率在这一分钟内保持平稳，既没有明显上升也没有下降。",
+          "advice": "正常的稳态表现，身体状况平稳。",
+          "detail": {
+            "mean_first_20s": 65.0,
+            "mean_last_20s": 65.3,
+            "delta_bpm": 0.3
+          }
+        },
+        "exercise_tolerance_hint": {
+          "name": "运动耐受提示",
+          "name_en": "Exercise Tolerance Hint",
+          "score": 57.3,
+          "unit": "分（0~100）",
+          "level": "一般",
+          "explanation": "您当前的身体承受能力中等，心脏调节余量一般。",
+          "advice": "建议以有氧运动为主，避免高强度力量训练。"
+        },
+        "cv_stress_signal": {
+          "name": "心血管应激指数",
+          "name_en": "CV Stress Signal",
+          "score": 17.5,
+          "unit": "分（0~100）",
+          "level": "低应激",
+          "explanation": "您的心血管系统当前负荷很低，心脏工作轻松。",
+          "advice": "心血管状态良好，可正常安排各项活动。"
+        },
+        "metabolic_load_hint": {
+          "name": "代谢负荷提示",
+          "name_en": "Metabolic Load Hint",
+          "score": null,
+          "unit": "",
+          "level": "正常",
+          "explanation": "在静息状态下，您的心率和心率变异性组合正常，未见明显代谢压力。",
+          "advice": "维持当前饮食和作息即可。"
+        },
+        "rhythm_anomaly_hint": {
+          "name": "节律异常提示",
+          "name_en": "Rhythm Anomaly Hint",
+          "score": null,
+          "unit": "",
+          "level": "未见异常",
+          "explanation": "心率节律平稳，未检测到明显的异常跳动。",
+          "advice": "节律表现正常，无需额外关注。",
+          "detail": {
+            "outlier_count": 1,
+            "outlier_ratio": 0.0167,
+            "HRV_diff_max_bpm": 9.8,
+            "PNN50_proxy": 0.0847
+          }
+        },
+        "instant_ans_activity": {
+          "name": "即时自主神经活性",
+          "name_en": "Instant ANS Activity",
+          "score": 73.4,
+          "unit": "分（0~100）",
+          "level": "活性良好",
+          "explanation": "您的自主神经系统调节能力正常偏好，身体对变化有不错的适应力。",
+          "advice": "可正常安排工作和运动。"
+        },
+        "instant_ans_balance": {
+          "name": "即时神经平衡趋势",
+          "name_en": "Instant ANS Balance",
+          "score": null,
+          "unit": "",
+          "level": "平衡",
+          "explanation": "您的交感和副交感神经处于良好的平衡状态，身体既有活力又有恢复能力。",
+          "advice": "最佳状态，适合各类活动。",
+          "detail": {
+            "SD1_ms": 24.4,
+            "SD2_ms": 53.3,
+            "SD1_SD2_ratio": 0.4591
+          }
+        },
+        "instant_regulatory_resilience": {
+          "name": "即时神经调节弹性",
+          "name_en": "Instant Regulatory Resilience",
+          "score": 55.7,
+          "unit": "分（0~100）",
+          "level": "良好",
+          "explanation": "您的神经调节弹性不错，面对压力变化时身体能较好地适应。",
+          "advice": "身体适应能力正常，可自信安排各项活动。",
+          "detail": {
+            "RMSSD_ms": 34.3,
+            "hr_range_bpm": 10.9
+          }
+        }
+      },
+      "comprehensive_summary": "综合来看，您当前身心状态良好，身体活力充足且压力水平较低。自主神经系统活性良好且处于平衡状态，调节弹性良好。运动方面，当前处于静息态，心率趋势稳定，运动耐受能力一般。风险筛查各项均在正常范围内，未见需要特别关注的信号。⚠ 本报告为1分钟即时快照，非临床诊断。HRV指标基于心率推导，仅供健康参考。",
+      "proxy_hrv_ms": {
+        "SDNN": 41.4,
+        "RMSSD": 34.3
+      },
+      "disclaimer": "本报告为1分钟即时状态快照，非临床诊断。HRV相关指标为心率推导的代理值，非心电级别，仅供健康参考。"
+    },
+    {
+      "source_csv": "hr_20260420_102855_part00.csv",
+      "window_start_elapsed_sec": 106,
+      "meta": {
+        "n_samples": 60,
+        "age_used": null,
+        "hr_max_formula": "185(default)"
+      },
+      "vitals": {
+        "mean_hr_bpm": 61.7,
+        "std_hr_bpm": 2.33,
+        "min_hr_bpm": 54.5,
+        "max_hr_bpm": 68.1,
+        "hr_range_bpm": 13.6,
+        "slope_bpm_per_min": -2.18
+      },
+      "indicators": {
+        "instant_readiness": {
+          "name": "即时活力指数",
+          "name_en": "Instant Readiness",
+          "score": 67.0,
+          "unit": "分（0~100）",
+          "level": "良好",
+          "explanation": "您的即时身心状态不错，身体具备良好的应对能力。",
+          "advice": "可正常安排各类活动，适合中高强度任务。",
+          "detail": {
+            "relaxation_score": 71.3,
+            "ans_activity_score": 71.2,
+            "resilience_score": 57.1
+          }
+        },
+        "instant_stress_index": {
+          "name": "即时压力指数",
+          "name_en": "Instant Stress Index",
+          "score": 27.8,
+          "unit": "分（0~100）",
+          "level": "放松",
+          "explanation": "您此刻处于放松平静的状态，身心压力很低。",
+          "advice": "可能处于低唤醒状态，适合创意性或轻松的工作。",
+          "detail": {
+            "trend_score": 23.2,
+            "disp_score": 23.3,
+            "dev_score": 41.6
+          }
+        },
+        "hr_fluctuation_sensitivity": {
+          "name": "心率波动敏感性",
+          "name_en": "HR Fluctuation Sensitivity",
+          "score": null,
+          "unit": "",
+          "level": "低",
+          "explanation": "您的心率非常平稳，对外界刺激的即时反应较小。",
+          "advice": "心率平稳，适合需要专注力的工作或安静休息。",
+          "detail": {
+            "CV_HR": 0.0378,
+            "HRV_diff_mean_bpm": 1.01
+          }
+        },
+        "hr_reserve_utilization": {
+          "name": "即时心率储备利用率",
+          "name_en": "HR Reserve Utilization",
+          "score": 2.5,
+          "unit": "%",
+          "level": "静息态",
+          "explanation": "您当前心率接近静息水平，身体处于安静休息状态。",
+          "advice": "适合放松和恢复，也适合进行冥想或阅读。",
+          "detail": {
+            "hr_rest_p5": 58.5,
+            "hr_max_est": 185.0
+          }
+        },
+        "hr_recovery_tendency": {
+          "name": "心率恢复趋势",
+          "name_en": "HR Recovery Tendency",
+          "score": null,
+          "unit": "",
+          "level": "稳定",
+          "explanation": "您的心率在这一分钟内保持平稳，既没有明显上升也没有下降。",
+          "advice": "正常的稳态表现，身体状况平稳。",
+          "detail": {
+            "mean_first_20s": 62.0,
+            "mean_last_20s": 60.6,
+            "delta_bpm": -1.4
+          }
+        },
+        "exercise_tolerance_hint": {
+          "name": "运动耐受提示",
+          "name_en": "Exercise Tolerance Hint",
+          "score": 55.3,
+          "unit": "分（0~100）",
+          "level": "一般",
+          "explanation": "您当前的身体承受能力中等，心脏调节余量一般。",
+          "advice": "建议以有氧运动为主，避免高强度力量训练。"
+        },
+        "cv_stress_signal": {
+          "name": "心血管应激指数",
+          "name_en": "CV Stress Signal",
+          "score": 15.6,
+          "unit": "分（0~100）",
+          "level": "低应激",
+          "explanation": "您的心血管系统当前负荷很低，心脏工作轻松。",
+          "advice": "心血管状态良好，可正常安排各项活动。"
+        },
+        "metabolic_load_hint": {
+          "name": "代谢负荷提示",
+          "name_en": "Metabolic Load Hint",
+          "score": null,
+          "unit": "",
+          "level": "正常",
+          "explanation": "在静息状态下，您的心率和心率变异性组合正常，未见明显代谢压力。",
+          "advice": "维持当前饮食和作息即可。"
+        },
+        "rhythm_anomaly_hint": {
+          "name": "节律异常提示",
+          "name_en": "Rhythm Anomaly Hint",
+          "score": null,
+          "unit": "",
+          "level": "未见异常",
+          "explanation": "心率节律平稳，未检测到明显的异常跳动。",
+          "advice": "节律表现正常，无需额外关注。",
+          "detail": {
+            "outlier_count": 4,
+            "outlier_ratio": 0.0667,
+            "HRV_diff_max_bpm": 11.8,
+            "PNN50_proxy": 0.0508
+          }
+        },
+        "instant_ans_activity": {
+          "name": "即时自主神经活性",
+          "name_en": "Instant ANS Activity",
+          "score": 71.2,
+          "unit": "分（0~100）",
+          "level": "活性良好",
+          "explanation": "您的自主神经系统调节能力正常偏好，身体对变化有不错的适应力。",
+          "advice": "可正常安排工作和运动。"
+        },
+        "instant_ans_balance": {
+          "name": "即时神经平衡趋势",
+          "name_en": "Instant ANS Balance",
+          "score": null,
+          "unit": "",
+          "level": "平衡",
+          "explanation": "您的交感和副交感神经处于良好的平衡状态，身体既有活力又有恢复能力。",
+          "advice": "最佳状态，适合各类活动。",
+          "detail": {
+            "SD1_ms": 23.1,
+            "SD2_ms": 47.1,
+            "SD1_SD2_ratio": 0.4909
+          }
+        },
+        "instant_regulatory_resilience": {
+          "name": "即时神经调节弹性",
+          "name_en": "Instant Regulatory Resilience",
+          "score": 57.1,
+          "unit": "分（0~100）",
+          "level": "良好",
+          "explanation": "您的神经调节弹性不错，面对压力变化时身体能较好地适应。",
+          "advice": "身体适应能力正常，可自信安排各项活动。",
+          "detail": {
+            "RMSSD_ms": 32.4,
+            "hr_range_bpm": 13.6
+          }
+        }
+      },
+      "comprehensive_summary": "综合来看，您当前身心状态良好，身体活力充足且压力水平较低。自主神经系统活性良好且处于平衡状态，调节弹性良好。运动方面，当前处于静息态，心率趋势稳定，运动耐受能力一般。风险筛查各项均在正常范围内，未见需要特别关注的信号。⚠ 本报告为1分钟即时快照，非临床诊断。HRV指标基于心率推导，仅供健康参考。",
+      "proxy_hrv_ms": {
+        "SDNN": 37.1,
+        "RMSSD": 32.4
+      },
+      "disclaimer": "本报告为1分钟即时状态快照，非临床诊断。HRV相关指标为心率推导的代理值，非心电级别，仅供健康参考。"
+    }
+  ]
+}

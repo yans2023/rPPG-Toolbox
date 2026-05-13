@@ -1,0 +1,36 @@
+rPPG vs fiber heart-rate alignment summary
+
+rPPG files: 12 (hr_20260420_102855_part00.csv, hr_20260420_102855_part01.csv, hr_20260420_102855_part02.csv, hr_20260420_102855_part03.csv, hr_20260420_102855_part04.csv, hr_20260420_102855_part05.csv, hr_20260420_105944_part00.csv, hr_20260420_105944_part01.csv, hr_20260420_105944_part02.csv, hr_20260420_105944_part03.csv, hr_20260420_105944_part04.csv, hr_20260420_105944_part05.csv)
+fiber files: 1 (ZWU524070001_20260420.txt)
+rPPG raw rows: 3600, valid rows: 3592, invalid rows: 8
+fiber raw rows: 3313, valid rows: 3309, invalid rows: 4
+rPPG time range: 2026-04-20 10:28:56 -> 2026-04-20 11:29:44
+fiber time range: 2026-04-20 10:21:26 -> 2026-04-20 11:30:36
+aligned union seconds: 4037
+comparable seconds with both valid HR: 2733
+
+Heart-rate distribution after per-second aggregation:
+  rPPG: n=3457, mean=63.69, median=62.40, std=7.03, min=46.10, max=124.70
+  fiber: n=3309, mean=66.61, median=63.00, std=8.45, min=51.00, max=91.00
+
+Difference statistics on comparable seconds:
+  overall: n=2733
+  bias(rPPG-fiber)=-3.21 BPM
+  MAE=7.90 BPM, RMSE=11.36 BPM, median_abs_error=4.60 BPM
+  std_diff=10.90 BPM, diff_range=[-32.30, 52.30] BPM
+  p95_abs_error=24.40 BPM, corr=0.046
+  within: <=3 BPM 39.0%, <=5 BPM 51.9%, <=10 BPM 69.7%
+
+Per-rPPG-session difference statistics:
+  20260420_102855: n=1338
+  bias(rPPG-fiber)=-4.95 BPM
+  MAE=8.59 BPM, RMSE=11.95 BPM, median_abs_error=5.55 BPM
+  std_diff=10.89 BPM, diff_range=[-32.30, 45.40] BPM
+  p95_abs_error=24.40 BPM, corr=-0.041
+  within: <=3 BPM 37.0%, <=5 BPM 47.7%, <=10 BPM 66.2%
+  20260420_105944: n=1395
+  bias(rPPG-fiber)=-1.54 BPM
+  MAE=7.23 BPM, RMSE=10.77 BPM, median_abs_error=4.10 BPM
+  std_diff=10.66 BPM, diff_range=[-29.80, 52.30] BPM
+  p95_abs_error=24.50 BPM, corr=0.115
+  within: <=3 BPM 41.0%, <=5 BPM 56.0%, <=10 BPM 73.1%

@@ -1,0 +1,337 @@
+[
+  {
+    "meta": {
+      "window_index": 1,
+      "window_start": "2026-04-20 10:28:59",
+      "window_end": "2026-04-20 10:29:58",
+      "quality_flag": "good",
+      "valid_ratio": 0.966667
+    },
+    "blocked": false,
+    "vitals": {
+      "avg_heart_rate": 64.3,
+      "median_heart_rate": 63.1,
+      "min_heart_rate": 47.0,
+      "max_heart_rate": 104.4,
+      "heart_rate_range": 57.4,
+      "heart_rate_slope": -10.03
+    },
+    "noise": {
+      "outlier_count": 2,
+      "noise_ratio": 0.0345,
+      "noise_discount": 0.8
+    },
+    "mental": {
+      "tension_score": 25.8,
+      "tension_label": "放松",
+      "relaxation_score": 98.1,
+      "relaxation_label": "深度放松",
+      "fluctuation_level": "高"
+    },
+    "fitness": {
+      "reserve_utilization": 12.5,
+      "reserve_label": "静息态",
+      "recovery_tendency": "恢复中",
+      "tolerance_label": "良好"
+    },
+    "chronic": {
+      "cv_stress_score": 55.7,
+      "cv_stress_label": "轻度应激",
+      "metabolic_label": "正常",
+      "rhythm_label": "建议复查",
+      "reliable": true
+    },
+    "ans": {
+      "activity_score": 88.7,
+      "activity_label": "活性旺盛",
+      "balance_label": "平衡",
+      "resilience_score": 100,
+      "resilience_label": "弹性优秀"
+    },
+    "tcm": {
+      "primary": "血瘀质",
+      "primary_match": 4,
+      "primary_level": "高",
+      "secondary": "气郁质",
+      "secondary_match": 3,
+      "secondary_level": "中",
+      "tip": "适度运动促进循环，避免久坐，注意保暖",
+      "reliable": true
+    },
+    "confidence": {
+      "mental": "高",
+      "fitness": "高",
+      "chronic": "高",
+      "ans": "高",
+      "tcm": "高"
+    }
+  },
+  {
+    "meta": {
+      "window_index": 2,
+      "window_start": "2026-04-20 10:29:59",
+      "window_end": "2026-04-20 10:30:58",
+      "quality_flag": "good",
+      "valid_ratio": 1.0
+    },
+    "blocked": false,
+    "vitals": {
+      "avg_heart_rate": 61.7,
+      "median_heart_rate": 60.9,
+      "min_heart_rate": 60.8,
+      "max_heart_rate": 63.3,
+      "heart_rate_range": 2.5,
+      "heart_rate_slope": -0.05
+    },
+    "noise": {
+      "outlier_count": 0,
+      "noise_ratio": 0.0,
+      "noise_discount": 1.0
+    },
+    "mental": {
+      "tension_score": 0.5,
+      "tension_label": "放松",
+      "relaxation_score": 72.5,
+      "relaxation_label": "较放松",
+      "fluctuation_level": "低"
+    },
+    "fitness": {
+      "reserve_utilization": 0.7,
+      "reserve_label": "静息态",
+      "recovery_tendency": "稳定",
+      "tolerance_label": "需关注"
+    },
+    "chronic": {
+      "cv_stress_score": 1.7,
+      "cv_stress_label": "低应激",
+      "metabolic_label": "正常",
+      "rhythm_label": "未见异常",
+      "reliable": true
+    },
+    "ans": {
+      "activity_score": 56.9,
+      "activity_label": "活性良好",
+      "balance_label": "平衡",
+      "resilience_score": 40,
+      "resilience_label": "弹性一般"
+    },
+    "tcm": {
+      "primary": "气虚质",
+      "primary_match": 4,
+      "primary_level": "高",
+      "secondary": "阳虚质",
+      "secondary_match": 4,
+      "secondary_level": "高",
+      "tip": "适度有氧运动，避免过度劳累，注意保暖",
+      "reliable": true
+    },
+    "confidence": {
+      "mental": "高",
+      "fitness": "高",
+      "chronic": "高",
+      "ans": "高",
+      "tcm": "高"
+    }
+  },
+  {
+    "meta": {
+      "window_index": 3,
+      "window_start": "2026-04-20 10:30:59",
+      "window_end": "2026-04-20 10:31:58",
+      "quality_flag": "good",
+      "valid_ratio": 1.0
+    },
+    "blocked": false,
+    "vitals": {
+      "avg_heart_rate": 61.7,
+      "median_heart_rate": 61.1,
+      "min_heart_rate": 54.5,
+      "max_heart_rate": 68.1,
+      "heart_rate_range": 13.6,
+      "heart_rate_slope": -1.13
+    },
+    "noise": {
+      "outlier_count": 0,
+      "noise_ratio": 0.0,
+      "noise_discount": 1.0
+    },
+    "mental": {
+      "tension_score": 5.5,
+      "tension_label": "放松",
+      "relaxation_score": 77.0,
+      "relaxation_label": "深度放松",
+      "fluctuation_level": "中"
+    },
+    "fitness": {
+      "reserve_utilization": 5.5,
+      "reserve_label": "静息态",
+      "recovery_tendency": "稳定",
+      "tolerance_label": "良好"
+    },
+    "chronic": {
+      "cv_stress_score": 12.4,
+      "cv_stress_label": "低应激",
+      "metabolic_label": "正常",
+      "rhythm_label": "轻度波动",
+      "reliable": true
+    },
+    "ans": {
+      "activity_score": 74.0,
+      "activity_label": "活性良好",
+      "balance_label": "副交感偏强",
+      "resilience_score": 70.5,
+      "resilience_label": "弹性良好"
+    },
+    "tcm": {
+      "primary": "平和质",
+      "primary_match": 4,
+      "primary_level": "高",
+      "secondary": "血瘀质",
+      "secondary_match": 4,
+      "secondary_level": "高",
+      "tip": "保持规律作息，适度运动，均衡饮食",
+      "reliable": true
+    },
+    "confidence": {
+      "mental": "高",
+      "fitness": "高",
+      "chronic": "高",
+      "ans": "高",
+      "tcm": "高"
+    }
+  },
+  {
+    "meta": {
+      "window_index": 4,
+      "window_start": "2026-04-20 10:31:59",
+      "window_end": "2026-04-20 10:32:58",
+      "quality_flag": "good",
+      "valid_ratio": 0.966667
+    },
+    "blocked": false,
+    "vitals": {
+      "avg_heart_rate": 67.5,
+      "median_heart_rate": 68.8,
+      "min_heart_rate": 55.7,
+      "max_heart_rate": 79.5,
+      "heart_rate_range": 23.8,
+      "heart_rate_slope": 9.51
+    },
+    "noise": {
+      "outlier_count": 0,
+      "noise_ratio": 0.0,
+      "noise_discount": 1.0
+    },
+    "mental": {
+      "tension_score": 46.3,
+      "tension_label": "平稳",
+      "relaxation_score": 57.0,
+      "relaxation_label": "较放松",
+      "fluctuation_level": "高"
+    },
+    "fitness": {
+      "reserve_utilization": 9.1,
+      "reserve_label": "静息态",
+      "recovery_tendency": "激活中",
+      "tolerance_label": "良好"
+    },
+    "chronic": {
+      "cv_stress_score": 40.0,
+      "cv_stress_label": "正常范围",
+      "metabolic_label": "正常",
+      "rhythm_label": "轻度波动",
+      "reliable": true
+    },
+    "ans": {
+      "activity_score": 88.6,
+      "activity_label": "活性旺盛",
+      "balance_label": "平衡",
+      "resilience_score": 89.0,
+      "resilience_label": "弹性优秀"
+    },
+    "tcm": {
+      "primary": "痰湿质",
+      "primary_match": 4,
+      "primary_level": "高",
+      "secondary": "气郁质",
+      "secondary_match": 3,
+      "secondary_level": "中",
+      "tip": "加强运动，饮食清淡，少食油腻甜食",
+      "reliable": true
+    },
+    "confidence": {
+      "mental": "高",
+      "fitness": "高",
+      "chronic": "高",
+      "ans": "高",
+      "tcm": "高"
+    }
+  },
+  {
+    "meta": {
+      "window_index": 5,
+      "window_start": "2026-04-20 10:32:59",
+      "window_end": "2026-04-20 10:33:58",
+      "quality_flag": "fair",
+      "valid_ratio": 0.783333
+    },
+    "blocked": false,
+    "vitals": {
+      "avg_heart_rate": 61.9,
+      "median_heart_rate": 61.5,
+      "min_heart_rate": 55.7,
+      "max_heart_rate": 67.7,
+      "heart_rate_range": 12.0,
+      "heart_rate_slope": 0.63
+    },
+    "noise": {
+      "outlier_count": 0,
+      "noise_ratio": 0.0,
+      "noise_discount": 1.0
+    },
+    "mental": {
+      "tension_score": 5.7,
+      "tension_label": "放松",
+      "relaxation_score": 71.0,
+      "relaxation_label": "较放松",
+      "fluctuation_level": "低"
+    },
+    "fitness": {
+      "reserve_utilization": 4.8,
+      "reserve_label": "静息态",
+      "recovery_tendency": "稳定",
+      "tolerance_label": "一般"
+    },
+    "chronic": {
+      "cv_stress_score": 9.4,
+      "cv_stress_label": "低应激",
+      "metabolic_label": "正常",
+      "rhythm_label": "轻度波动",
+      "reliable": false
+    },
+    "ans": {
+      "activity_score": 69.3,
+      "activity_label": "活性良好",
+      "balance_label": "副交感偏强",
+      "resilience_score": 60.4,
+      "resilience_label": "弹性良好"
+    },
+    "tcm": {
+      "primary": "平和质",
+      "primary_match": 4,
+      "primary_level": "高",
+      "secondary": "血瘀质",
+      "secondary_match": 4,
+      "secondary_level": "高",
+      "tip": "保持规律作息，适度运动，均衡饮食",
+      "reliable": false
+    },
+    "confidence": {
+      "mental": "中",
+      "fitness": "中",
+      "chronic": "中",
+      "ans": "中",
+      "tcm": "中"
+    }
+  }
+]

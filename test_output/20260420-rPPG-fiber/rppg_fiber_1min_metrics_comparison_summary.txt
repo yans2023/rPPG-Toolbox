@@ -1,0 +1,21 @@
+Aligned rPPG vs fiber 1 minute indicator comparison
+
+input_csv: test_output/20260420-rPPG-fiber/aligned_rppg_fiber_hr.csv
+windows: 5
+
+Per-window key results:
+  window 1 (2026-04-20 10:28:59 -> 2026-04-20 10:29:58): rPPG avg HR 64.31, fiber avg HR 62.42, diff +1.89 BPM; rPPG RMSSD 75.65, fiber RMSSD 16.03
+  window 2 (2026-04-20 10:29:59 -> 2026-04-20 10:30:58): rPPG avg HR 61.70, fiber avg HR 62.82, diff -1.12 BPM; rPPG RMSSD 8.78, fiber RMSSD 9.13
+  window 3 (2026-04-20 10:30:59 -> 2026-04-20 10:31:58): rPPG avg HR 61.69, fiber avg HR 60.44, diff +1.25 BPM; rPPG RMSSD 42.14, fiber RMSSD 13.77
+  window 4 (2026-04-20 10:31:59 -> 2026-04-20 10:32:58): rPPG avg HR 67.48, fiber avg HR 69.55, diff -2.06 BPM; rPPG RMSSD 43.73, fiber RMSSD 27.80
+  window 5 (2026-04-20 10:32:59 -> 2026-04-20 10:33:58): rPPG avg HR 61.87, fiber avg HR 86.88, diff -25.01 BPM; rPPG RMSSD 36.88, fiber RMSSD 18.03
+
+Aggregate differences (rPPG - fiber):
+  avg_heart_rate mean diff: -5.01 BPM
+  median_heart_rate mean diff: -6.52 BPM
+  SDNN mean diff: +1.77 ms
+  RMSSD_HR mean diff: +24.49 ms
+
+Notes:
+  HRV-like metrics are HR-derived proxy HRV, not beat-level HRV.
+  Fiber samples are not present on every wall-clock second, so quality flags should be checked.

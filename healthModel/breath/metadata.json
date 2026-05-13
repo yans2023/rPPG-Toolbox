@@ -1,0 +1,8 @@
+{
+  "name": "灵泉生木",
+  "description": "1分钟 rPPG 基线测算与呼吸协同小游戏",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": []
+}
